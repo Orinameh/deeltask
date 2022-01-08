@@ -4,7 +4,7 @@
 
 To run this project
 
-* Clone the repo from `git clone https://github.com/Orinameh/huspy-th.git`
+* Clone the repo from `git clone https://github.com/Orinameh/deeltask.git`
 * Run `yarn(npm) install`
 * Then run `yarn start` to run the project
 
