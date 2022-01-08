@@ -1,46 +1,57 @@
-# Getting Started with Create React App
+# Deel Frontend Task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Part 1:
 
-## Available Scripts
+To run this project
 
-In the project directory, you can run:
+* Clone the repo from `git clone https://github.com/Orinameh/huspy-th.git`
+* Run `yarn(npm) install`
+* Then run `yarn start` to run the project
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Part 2
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### 1. Difference between a Component and PureComponent
+A component rerenders when there is a change in the state or props of its Parent component but a PureComponent will not rerender if a its parent component does. PureComponent does this by perfoming a shallow comparism on state change. With this, a PureComponent is said to be performant than a Component.
 
-### `npm test`
+#### 2. Context + ShouldComponentUpdate might be dangerous. Can think of why is that?
+Ideally, `shouldComponentUpdate` references the `nextContext` of a component when there is rerendering.Since `shouldComponentUpdate` bypasses the rerendering, whenever the states or props of component are not correctly changed, `shouldComponentUpdate` will return false. This will make the state and props of the descendants component not to get update. As a result, their might be latency in the data which might cause problems.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 3. Describe 3 ways to pass information from a component to its PARENT.
+a. By passing a callback function as a prop from the parent to the child component.
+b. Using a state management tool like redux.
+c. Context can also be used to achieve this.
 
-### `npm run build`
+#### 4. Give 2 ways to prevent components from re-rendering.
+a. Memoizing components with `React.memo`, expensive functions with `useCallback` hook and expensive computation with `useMemo`
+b. Using `shouldComponentUpdate` to do shallow comparism of state in class components.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 5. What is a fragment and why do we need it? Give an example where it might break my app.
+A fragment is a react element that is used for grouping several child components or elements in react without introducing a DOM elements. It's represented as `<React.Fragment></React.Fragment>` or `<></>` for short. An example where it might break an app is when you try to apply styling to it or when it was not properly closed.
+#### 6. Give 3 examples of the HOC pattern.
+A `Higher Order Component(HOC)` is a function that takes another component as an argument and return a new component. Examples include:
+a. The `connect` function in redux is a perfect example of `HOCs`.
+b. Another example is the Material-UI `withStyles`.
+c. Finally, `StyledComponents` `withTheme` is also an example.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### 7. what's the difference in handling exceptions in promises, callbacks and async...await.
+In a promise, there is a catch exception that the error propagates to if the promise is rejected. E.g `promiseFunction().then().catch(err)`. In a traditional callback, the error is passed as an argument alongside the result in the callback. This helps to handle the error before the result. In async...await, errors are handled similar to the promises(async...await is a promise) but with a different syntax. e.g `try {const res = await somePromiseFunction()}catch(err){}`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 8. How many arguments does setState take and why is it async.
+The `setState` function has two arguments, 1. an object which contains the value to update and 2. the callback function which is asynchronous.
 
-### `npm run eject`
+#### 9. List the steps needed to migrate a Class to Function Component.
+a. Remove the `class` keyword and its extensions and replace with either `function` or `const` to define the function.
+b. Convert states to using `useState` hook.
+c. Conver any lifecycle methods to using `useEffect` hook. The `useEffect` hook can support all lifecycles of a react component.
+d. Remove the `render` method and replace with `return` to display the `jsx elements`.
+#### 10. List a few ways styles can be used with components.
+There are several ways to style react components. They include:
+a. Using custom css styles.
+b. Css modules which react supports by default. This helps to scope css classes which is important to avoid clashing of styles.
+c. Using Sass.
+d. A popular that was inspired by React is `css-in-js` frameworks. Examples include `StyledComponents`, `EmotionCss` etc.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 11. How to render an HTML string coming from the server.
+React exposes the `dangerouslySetInnerHTML` for settiing HTML string coming from the server. This helps to prevent exposure to cross-site-scripting popular known as `XSS` attack.
+E.g `<div dangerouslySetInnerHTML={{__html: html}} />`
